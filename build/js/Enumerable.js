@@ -6,26 +6,13 @@
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
   Enumerable = (function() {
-    function Enumerable(values) {
-      this.values = values != null ? this.handleType(values) : [];
+    function Enumerable() {
+      this.values = _.toArray(arguments);
       this.events = {};
       if (((typeof _ !== "undefined" && _ !== null) && typeof _ === "function") === false) {
         throw new Error("Underscore.js is required");
       }
     }
-
-    Enumerable.prototype.handleType = function(value) {
-      if (value != null) {
-        if (value instanceof Array) {
-          return value;
-        } else if (value instanceof Object) {
-          return [value];
-        } else if (typeof value === "string" || typeof value === "number") {
-          return [value];
-        }
-      }
-      return void 0;
-    };
 
     Enumerable.prototype.set = function(value) {
       this.values.push(value);
@@ -40,6 +27,18 @@
       if (val != null) {
         return this.trigger('get', val);
       }
+    };
+
+    Enumerable.prototype.remove = function(value) {
+      var index, val, values;
+      index = _.indexOf(this.values, value);
+      if (index === -1) {
+        this.trigger('remove', false);
+      }
+      val = this.values[index];
+      values = this.values.slice(0, index).concat(_.rest(this.values, index + 1));
+      this.values = values;
+      return this.trigger('remove', val);
     };
 
     Enumerable.prototype.pop = function() {
