@@ -5,23 +5,13 @@ root = exports ? this
 # 
 class Enumerable
 
-  constructor : (values) ->
-    @values = if values? then @handleType(values) else []
+  constructor : ->
+    @values = _.toArray(arguments)
     @events = {}
 
     # Underscore.js is required
     if (_? && typeof _ == "function") == false
       throw new Error "Underscore.js is required"
- 
-  handleType : (value) ->
-    if value?
-      if value instanceof Array
-        return value
-      else if value instanceof Object
-        return [value]
-      else if typeof value == "string" || typeof value == "number"
-        return [value]
-    undefined
 
   set : (value) ->
     @values.push value
