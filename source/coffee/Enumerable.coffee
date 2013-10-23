@@ -54,6 +54,10 @@ class Enumerable
   register : (event, fn) ->
     @events[event] = fn
 
+  deregister : (event) ->
+    if @events[event]?
+      delete @events[event]
+
   trigger : (event, args...) ->
     if event? && @events[event]?
       @events[event](args)
