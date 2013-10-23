@@ -23,7 +23,7 @@ class Enumerable
 
   remove : (value) ->
     index = _.indexOf @values, value
-    @trigger('remove', false) if index == -1
+    return @trigger('remove', false) if index == -1
     val = @values[index]
     values = @values.slice(0, index).concat(_.rest(@values, index + 1))
     @values = values
