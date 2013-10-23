@@ -72,7 +72,7 @@ class Enumerable
 
   trigger : (event, args...) ->
     if event? && @events[event]?
-      @events[event](args)
+      @events[event](@cleanReturnVal args)
     @cleanReturnVal args
 
   cleanReturnVal : (val) ->

@@ -102,7 +102,7 @@
       var args, event;
       event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
       if ((event != null) && (this.events[event] != null)) {
-        this.events[event](args);
+        this.events[event](this.cleanReturnVal(args));
       }
       return this.cleanReturnVal(args);
     };
