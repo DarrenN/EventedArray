@@ -14,9 +14,23 @@
       }
     }
 
-    Enumerable.prototype.set = function(value) {
-      this.values.push(value);
-      return this.trigger('set', value);
+    Enumerable.prototype.set = function() {
+      var v, values, _i, _len, _results;
+      values = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      if (values.length > 1) {
+        _results = [];
+        for (_i = 0, _len = values.length; _i < _len; _i++) {
+          v = values[_i];
+          _results.push(this.set(v));
+        }
+        return _results;
+      } else {
+        if ((this.buffer_length != null) && this.values.length >= this.buffer_length) {
+          this.shift();
+        }
+        this.values.push(values[0]);
+        return this.trigger('set', values[0]);
+      }
     };
 
     Enumerable.prototype.get = function(index) {
@@ -33,7 +47,7 @@
       var index, val, values;
       index = _.indexOf(this.values, value);
       if (index === -1) {
-        this.trigger('remove', false);
+        return this.trigger('remove', false);
       }
       val = this.values[index];
       values = this.values.slice(0, index).concat(_.rest(this.values, index + 1));
@@ -44,6 +58,10 @@
     Enumerable.prototype.pop = function() {
       this.values.pop();
       return this.trigger('pop');
+    };
+
+    Enumerable.prototype.shift = function() {
+      return this.trigger('shift', this.values.shift());
     };
 
     Enumerable.prototype.each = function(fn, context) {
@@ -74,6 +92,12 @@
       return this.events[event] = fn;
     };
 
+    Enumerable.prototype.deregister = function(event) {
+      if (this.events[event] != null) {
+        return delete this.events[event];
+      }
+    };
+
     Enumerable.prototype.trigger = function() {
       var args, event;
       event = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
@@ -92,6 +116,20 @@
 
     Enumerable.prototype.toString = function() {
       return this.values.toString();
+    };
+
+    Enumerable.prototype.setBuffer = function(buffer_length) {
+      var v, _i, _len, _ref, _results;
+      this.buffer_length = buffer_length;
+      if (this.values.length > 0 && this.values.length > this.buffer_length) {
+        _ref = this.values.slice(0, this.values.length - this.buffer_length);
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          v = _ref[_i];
+          _results.push(this.shift(v));
+        }
+        return _results;
+      }
     };
 
     return Enumerable;
