@@ -108,14 +108,15 @@
     };
 
     Enumerable.prototype.cleanReturnVal = function(val) {
-      if (val instanceof Array && val.length === 1) {
+      if (_.isArray(val) && val.length === 1) {
         return val[0];
+      } else {
+        return val;
       }
-      return val;
     };
 
     Enumerable.prototype.toString = function() {
-      return this.values.toString();
+      return JSON.stringify(this.values);
     };
 
     Enumerable.prototype.setBuffer = function(buffer_length) {

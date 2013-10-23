@@ -76,12 +76,13 @@ class Enumerable
     @cleanReturnVal args
 
   cleanReturnVal : (val) ->
-    if val instanceof Array && val.length == 1
+    if _.isArray(val) && val.length == 1
       return val[0]
-    val
+    else
+      val
 
   toString : ->
-    @values.toString()
+    JSON.stringify @values
 
   setBuffer : (@buffer_length) ->
     if @values.length > 0 && @values.length > @buffer_length
