@@ -4,10 +4,14 @@ root = exports ? this
 # ==========
 # 
 class Enumerable
- 
+
   constructor : (values) ->
     @values = if values? then @handleType(values) else []
     @events = {}
+
+    # Underscore.js is required
+    if (_? && typeof _ == "function") == false
+      throw new Error "Underscore.js is required"
  
   handleType : (value) ->
     if value?
@@ -18,7 +22,7 @@ class Enumerable
       else if typeof value == "string" || typeof value == "number"
         return [value]
     undefined
- 
+
   set : (value) ->
     @values.push value
     @trigger 'set', value
@@ -30,17 +34,24 @@ class Enumerable
   pop : ->
     @values.pop()
     @trigger 'pop'
- 
-  map : (fn) ->
-    @values.map (v) =>
-      @trigger 'map', v
+
+  each : (fn, context) ->
+    _.each(@values, (v) =>
+      @trigger 'each', v
       fn(v)
+    , context)
+
+  map : (fn, context) ->
+    @trigger 'map', _.map @values, fn, context
  
-  forEach : (fn) ->
-    @values.forEach (v) =>
-      @trigger 'forEach', v
-      fn(v)
-    @values
+  forEach : (fn, context) ->
+    @each fn, context
+
+  reduce : (fn, memo, context) ->
+    @trigger 'reduce', _.reduce @values, fn, memo, context
+
+  reduceRight : (fn, memo, context) ->
+    @trigger 'reduceRight', _.reduce @values, fn, memo, context
  
   register : (event, fn) ->
     @events[event] = fn
@@ -66,6 +77,6 @@ if typeof module == 'object' && module && typeof module.exports == 'object'
 else if typeof exports == 'object' && exports
   exports.Enumerable = Enumerable
 else if typeof define == 'function' && define.amd
-  define 'Enumerable', [], -> return Enumerable
+  define 'enumerable', [], -> return Enumerable
 else
   root.Enumerable = Enumerable
