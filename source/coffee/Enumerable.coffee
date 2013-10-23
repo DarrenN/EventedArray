@@ -13,9 +13,18 @@ class Enumerable
     if (_? && typeof _ == "function") == false
       throw new Error "Underscore.js is required"
 
-  set : (value) ->
-    @values.push value
-    @trigger 'set', value
+  set : (values...) ->
+    if values.length > 1
+      for v in values
+        @set v
+    else
+      # if we've hit our buffer length we need to shift values off
+      # the front of the stack as we add new ones
+      if @buffer_length? && @values.length >= @buffer_length
+        @shift()
+
+      @values.push values[0]
+      @trigger 'set', values[0]
 
   get : (index) ->
     val = @values[index] if @values[index]?
@@ -32,6 +41,9 @@ class Enumerable
   pop : ->
     @values.pop()
     @trigger 'pop'
+
+  shift : ->
+    @trigger 'shift', @values.shift()
 
   each : (fn, context) ->
     _.each(@values, (v) =>
@@ -70,6 +82,10 @@ class Enumerable
 
   toString : ->
     @values.toString()
+
+  setBuffer : (@buffer_length) ->
+    if @values.length > 0 && @values.length > @buffer_length
+      @shift v for v in @values.slice(0, @values.length - @buffer_length)
 
 
 # Do some checking of the global space to see if we're in AMD /
