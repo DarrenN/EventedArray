@@ -113,3 +113,11 @@ define ['enumerable','underscore'], (Enumerable, _) ->
         0)
       expect(sumr).toEqual(15)
       expect(e.values).toEqual([1,2,3,4,5])
+
+    it 'should return the first value with first()', ->
+      e = new Enumerable(1,2,3,4,5)
+      expect(e.first()).toEqual(1)
+
+    it 'should return the rest() of the values', ->
+      e = new Enumerable(1,2,3,4,5)
+      expect(e.rest()).toEqual([2,3,4,5])

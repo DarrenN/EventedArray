@@ -167,7 +167,7 @@
         expect(square).toEqual(240);
         return expect(e.values).toEqual([1, 2, 3, 4, 5]);
       });
-      return it('should reduceRight() values to a new value', function() {
+      it('should reduceRight() values to a new value', function() {
         var e, sumr;
         e = new Enumerable(1, 2, 3, 4, 5);
         sumr = e.reduceRight(function(memo, num) {
@@ -175,6 +175,16 @@
         }, 0);
         expect(sumr).toEqual(15);
         return expect(e.values).toEqual([1, 2, 3, 4, 5]);
+      });
+      it('should return the first value with first()', function() {
+        var e;
+        e = new Enumerable(1, 2, 3, 4, 5);
+        return expect(e.first()).toEqual(1);
+      });
+      return it('should return the rest() of the values', function() {
+        var e;
+        e = new Enumerable(1, 2, 3, 4, 5);
+        return expect(e.rest()).toEqual([2, 3, 4, 5]);
       });
     });
   });
