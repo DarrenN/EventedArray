@@ -63,14 +63,44 @@ class Enumerable
   reduceRight : (fn, memo, context) ->
     @trigger 'reduceRight', _.reduce @values, fn, memo, context
 
+  filter : (fn, context) ->
+    @trigger 'filter', _.filter @values, fn, context
+
+  reject : (fn, context) ->
+    @trigger 'reject', _.reject @values, fn, context
+
+  every : (fn, context) ->
+    @trigger 'every', _.every @values, fn, context
+
+  all : (fn, context) ->
+    @trigger 'all', _.every @values, fn, context
+
+  any : (fn, context) ->
+    @trigger 'any', _.any @values, fn, context
+
+  some : (fn, context) ->
+    @trigger 'some', _.any @values, fn, context
+
+  contains : (target) ->
+    @trigger 'contains', _.contains @values, target
+
+  shuffle : ->
+    @trigger 'shuffle', _.shuffle @values
+  
 
   ###
   # Accessors without events - for quickly getting at values
   ###
 
-  first : -> _.first @values
+  first : (n) -> _.first @values, n
 
-  rest : -> _.rest @values
+  rest : (n) -> _.rest @values, n
+
+  initial : (n) -> _.initial @values, n
+
+  last : (n) -> _.last @values, n
+
+  indexOf : (item) -> _.indexOf @values, item
 
   ###
   # Event Handling

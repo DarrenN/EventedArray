@@ -90,17 +90,61 @@
       return this.trigger('reduceRight', _.reduce(this.values, fn, memo, context));
     };
 
+    Enumerable.prototype.filter = function(fn, context) {
+      return this.trigger('filter', _.filter(this.values, fn, context));
+    };
+
+    Enumerable.prototype.reject = function(fn, context) {
+      return this.trigger('reject', _.reject(this.values, fn, context));
+    };
+
+    Enumerable.prototype.every = function(fn, context) {
+      return this.trigger('every', _.every(this.values, fn, context));
+    };
+
+    Enumerable.prototype.all = function(fn, context) {
+      return this.trigger('all', _.every(this.values, fn, context));
+    };
+
+    Enumerable.prototype.any = function(fn, context) {
+      return this.trigger('any', _.any(this.values, fn, context));
+    };
+
+    Enumerable.prototype.some = function(fn, context) {
+      return this.trigger('some', _.any(this.values, fn, context));
+    };
+
+    Enumerable.prototype.contains = function(target) {
+      return this.trigger('contains', _.contains(this.values, target));
+    };
+
+    Enumerable.prototype.shuffle = function() {
+      return this.trigger('shuffle', _.shuffle(this.values));
+    };
+
     /*
     # Accessors without events - for quickly getting at values
     */
 
 
-    Enumerable.prototype.first = function() {
-      return _.first(this.values);
+    Enumerable.prototype.first = function(n) {
+      return _.first(this.values, n);
     };
 
-    Enumerable.prototype.rest = function() {
-      return _.rest(this.values);
+    Enumerable.prototype.rest = function(n) {
+      return _.rest(this.values, n);
+    };
+
+    Enumerable.prototype.initial = function(n) {
+      return _.initial(this.values, n);
+    };
+
+    Enumerable.prototype.last = function(n) {
+      return _.last(this.values, n);
+    };
+
+    Enumerable.prototype.indexOf = function(item) {
+      return _.indexOf(this.values, item);
     };
 
     /*
