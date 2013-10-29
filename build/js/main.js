@@ -2,7 +2,7 @@
 (function() {
   require({
     urlArgs: '',
-    baseUrl: 'build/js',
+    baseUrl: '../build/js',
     paths: {
       underscore: 'lib/underscore/underscore-min'
     },
