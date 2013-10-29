@@ -63,6 +63,19 @@ class Enumerable
   reduceRight : (fn, memo, context) ->
     @trigger 'reduceRight', _.reduce @values, fn, memo, context
 
+
+  ###
+  # Accessors without events - for quickly getting at values
+  ###
+
+  first : -> _.first @values
+
+  rest : -> _.rest @values
+
+  ###
+  # Event Handling
+  ###
+
   register : (event, fn) ->
     @events[event] = fn
 

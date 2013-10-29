@@ -90,6 +90,24 @@
       return this.trigger('reduceRight', _.reduce(this.values, fn, memo, context));
     };
 
+    /*
+    # Accessors without events - for quickly getting at values
+    */
+
+
+    Enumerable.prototype.first = function() {
+      return _.first(this.values);
+    };
+
+    Enumerable.prototype.rest = function() {
+      return _.rest(this.values);
+    };
+
+    /*
+    # Event Handling
+    */
+
+
     Enumerable.prototype.register = function(event, fn) {
       return this.events[event] = fn;
     };
