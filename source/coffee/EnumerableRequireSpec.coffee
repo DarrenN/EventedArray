@@ -114,10 +114,62 @@ define ['enumerable','underscore'], (Enumerable, _) ->
       expect(sumr).toEqual(15)
       expect(e.values).toEqual([1,2,3,4,5])
 
+    it 'should filter() values', ->
+      e = new Enumerable(false, true, true, false)
+      expect(e.filter(_.identity)).toEqual([true, true])
+      d = new Enumerable(1,2,3,4,5,6,7,8,9,10)
+      expect(d.filter((i) -> i % 2)).toEqual([1,3,5,7,9])
+
+    it 'should reject() values', ->
+      e = new Enumerable(false, true, true, false)
+      expect(e.reject(_.identity)).toEqual([false, false])
+      d = new Enumerable(1,2,3,4,5,6,7,8,9,10)
+      expect(d.reject((i) -> i % 2)).toEqual([2,4,6,8,10])
+
+    it 'should return every() value that is true', ->
+      e = new Enumerable(1,2,3,2,5,6,2,8)
+      expect(e.every((i) -> i == 2)).toEqual(false)
+      d = new Enumerable(2,4,6,8,10)
+      expect(d.every((i) -> i % 2 == 0)).toEqual(true)
+
+    it 'should return any() value that is true', ->
+      e = new Enumerable(1,2,3,2,5,6,2,8)
+      expect(e.any((i) -> i == 2)).toEqual(true)
+      expect(e.any((i) -> i == 6)).toEqual(true)
+
+    it 'should know if its contains() a value', ->
+      e = new Enumerable(3,4,8,9,6,3)
+      expect(e.contains(8)).toEqual(true)
+      expect(e.contains('a')).toEqual(false)
+
+    it 'should be able to shuffle() values', ->
+      e = new Enumerable(1,2,3,4,5)
+      expect(e.shuffle()).toNotEqual([1,2,3,4,5])
+
     it 'should return the first value with first()', ->
       e = new Enumerable(1,2,3,4,5)
       expect(e.first()).toEqual(1)
+      expect(e.first(2)).toEqual([1,2])
 
     it 'should return the rest() of the values', ->
       e = new Enumerable(1,2,3,4,5)
       expect(e.rest()).toEqual([2,3,4,5])
+      expect(e.rest(2)).toEqual([3,4,5])
+      expect(e.rest(3)).toEqual([4,5])
+
+    it 'should return the initial() values', ->
+      e = new Enumerable(1,2,3,4,5)
+      expect(e.initial()).toEqual([1,2,3,4])
+      expect(e.initial(3)).toEqual([1,2])
+
+    it 'should return the last() values', ->
+      e = new Enumerable(1,2,3,4,5)
+      expect(e.last()).toEqual(5)
+      expect(e.last(2)).toEqual([4,5])
+
+    it 'should return the index of an item', ->
+      e = new Enumerable('a','b','c','d','e')
+      expect(e.indexOf('b')).toEqual(1)
+      expect(e.indexOf('e')).toEqual(4)
+
+    
