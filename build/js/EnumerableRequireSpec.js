@@ -251,11 +251,52 @@
         expect(e.last()).toEqual(5);
         return expect(e.last(2)).toEqual([4, 5]);
       });
-      return it('should return the index of an item', function() {
+      it('should return the index of an item', function() {
         var e;
         e = new Enumerable('a', 'b', 'c', 'd', 'e');
         expect(e.indexOf('b')).toEqual(1);
         return expect(e.indexOf('e')).toEqual(4);
+      });
+      return describe('Enumerable Events', function() {
+        var catchFn;
+        catchFn = jasmine.createSpy('catchFn');
+        it('can be registered', function() {
+          var e;
+          e = new Enumerable();
+          e.register('set', _.identity);
+          e.register('get', _.identity);
+          expect(_.isObject(e.events)).toEqual(true);
+          return expect(_.keys(e.events)).toEqual(['set', 'get']);
+        });
+        it('can register and call set event', function() {
+          var e;
+          e = new Enumerable(1, 2, 3, 4, 5);
+          e.register('set', catchFn);
+          e.set(6);
+          expect(catchFn).toHaveBeenCalled();
+          expect(catchFn).toHaveBeenCalledWith(6);
+          return catchFn.reset();
+        });
+        it('can register and call get event', function() {
+          var e;
+          e = new Enumerable(5, 6, 7, 8, 9);
+          e.register('get', catchFn);
+          e.get(2);
+          expect(catchFn).toHaveBeenCalled();
+          expect(catchFn).toHaveBeenCalledWith(7);
+          catchFn.reset();
+          e.get(8);
+          expect(catchFn).not.toHaveBeenCalled();
+          return catchFn.reset();
+        });
+        return it('can register and call remove event', function() {
+          var e;
+          e = new Enumerable('a', 5, 45);
+          e.register('remove', catchFn);
+          e.remove('a');
+          expect(catchFn).toHaveBeenCalled();
+          return expect(catchFn).toHaveBeenCalledWith('a');
+        });
       });
     });
   });

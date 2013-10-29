@@ -172,4 +172,43 @@ define ['enumerable','underscore'], (Enumerable, _) ->
       expect(e.indexOf('b')).toEqual(1)
       expect(e.indexOf('e')).toEqual(4)
 
-    
+
+    # Events!
+    describe 'Enumerable Events', ->
+
+      catchFn = jasmine.createSpy 'catchFn'
+
+      it 'can be registered', ->
+        e = new Enumerable()
+        e.register 'set', _.identity
+        e.register 'get', _.identity
+        expect(_.isObject(e.events)).toEqual(true)
+        expect(_.keys(e.events)).toEqual(['set', 'get'])
+
+      it 'can register and call set event', ->
+        e = new Enumerable(1,2,3,4,5)
+        e.register 'set', catchFn
+        e.set 6
+        expect(catchFn).toHaveBeenCalled()
+        expect(catchFn).toHaveBeenCalledWith(6)
+        catchFn.reset()
+
+      it 'can register and call get event', ->
+        e = new Enumerable(5,6,7,8,9)
+        e.register 'get', catchFn
+        e.get 2
+        expect(catchFn).toHaveBeenCalled()
+        expect(catchFn).toHaveBeenCalledWith(7)
+        catchFn.reset()
+
+        # If a get does not exist then the event is not called
+        e.get 8
+        expect(catchFn).not.toHaveBeenCalled()
+        catchFn.reset()
+
+      it 'can register and call remove event', ->
+        e = new Enumerable('a',5,45)
+        e.register 'remove', catchFn
+        e.remove 'a'
+        expect(catchFn).toHaveBeenCalled()
+        expect(catchFn).toHaveBeenCalledWith('a')
