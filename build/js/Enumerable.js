@@ -7,7 +7,9 @@
 
   Enumerable = (function() {
     function Enumerable() {
-      this.values = _.toArray(arguments);
+      var values;
+      values = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      this.values = values;
       this.events = {};
       if (((typeof _ !== "undefined" && _ !== null) && typeof _ === "function") === false) {
         throw new Error("Underscore.js is required");

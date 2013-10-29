@@ -5,8 +5,8 @@ root = exports ? this
 #
 class Enumerable
 
-  constructor : ->
-    @values = _.toArray(arguments)
+  constructor : (values...) ->
+    @values = values
     @events = {}
 
     # Underscore.js is required
