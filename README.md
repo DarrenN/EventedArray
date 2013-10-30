@@ -21,7 +21,7 @@ e.set('a') // console: a was set!
 	
 ```
 
-Pop open the `/tests` directory, I've got a bunch of stuff in there.
+Pop open the `/test` directory, I've got a bunch of stuff in there. This is a really [simple animation example](https://github.com/DarrenN/JSEnumerable/blob/master/test/test-animation.html) using a set-sized buffer.
 
 #### Dependencies
 
