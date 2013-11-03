@@ -6,12 +6,13 @@
 
   Photo = (function() {
     function Photo(entry, parent, remove) {
+      this.entry = entry;
       this.parent = parent;
       this.remove = remove;
       this.id = "photo_" + new Date().getTime();
-      this.url = entry.media.m;
-      this.title = entry.title === "" ? "Ohne titel" : entry.title;
-      this.author = entry.author;
+      this.url = this.entry.media.m;
+      this.title = this.entry.title === "" ? "Ohne titel" : entry.title;
+      this.author = this.entry.author;
       this.buildPhoto();
     }
 

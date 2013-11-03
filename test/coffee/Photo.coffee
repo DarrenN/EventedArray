@@ -1,11 +1,11 @@
 root = exports ? this
 
 class Photo
-  constructor : (entry, @parent, @remove) ->
+  constructor : (@entry, @parent, @remove) ->
     @id = "photo_" + new Date().getTime()
-    @url = entry.media.m
-    @title = if entry.title == "" then "Ohne titel" else entry.title
-    @author = entry.author
+    @url = @entry.media.m
+    @title = if @entry.title == "" then "Ohne titel" else entry.title
+    @author = @entry.author
 
     @buildPhoto()
 

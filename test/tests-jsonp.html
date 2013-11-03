@@ -9,17 +9,23 @@
         font-family: 'Helvetica Neue', arial, sans-serif;
         color: #333;
     }
-    #images-container {
+
+    .column {
+        margin: 0 50px 0 0;
+        float: left;
+    }
+
+    .images-container {
         width: 400px;
         height: 800px;
         border: #ddd 1px solid;
         overflow: auto;
     }
-    #images-list {
+    .images-list {
         margin: 0;
         padding: 0;
     }
-    #images-list li {
+    .images-list li {
         list-style-type: none;
         height: 80px;
         padding: 10px;
@@ -45,10 +51,10 @@
         display: block;
         margin: 0 0 5px 0;
     }
-    #tag-form {
+    .form {
         margin: 0 0 20px 0;
     }
-    #tag-input {
+    input[type=search] {
         width: 200px;
     }
   </style>
@@ -59,40 +65,89 @@
 </head>
 <body>
   <h1>JSEnumerable JSONP Test</h1>
-  <form method="get" id="tag-form">
-    <label for="tag-input">Search tag:</label>
-    <input type="search" id="tag-input" />
-    <input type="submit" id="tag-submit" value="Go!" />
-  </form>
-  <div id="images-container">
-    <ul id="images-list"></ul>
+  <div class="column">
+    <form method="get" id="tag-form" class="form">
+      <label for="tag-input">Search tag:</label>
+      <input type="search" id="tag-input" />
+      <input type="submit" id="tag-submit" value="Go!" />
+    </form>
+    <div class="images-container">
+      <ul class="images-list" id="tagged"></ul>
+    </div>
   </div>
+
+  <div class="column">
+    <form method="get" id="tag-filter" class="form">
+      <label for="tag-filter-input">Filter:</label>
+      <input type="search" id="tag-filter-input" />
+      <input type="submit" id="tag-filter-submit" value="Go!" />
+    </form>
+    <div class="images-container">
+      <ul class="images-list" id="filtered"></ul>
+    </div>
+  </div>
+
   <script type="text/javascript">
+    // Setup Form for Flickr photos
     var $form = $('form');
     var $search = $form.find('#tag-input');
     var $submit = $form.find('#tag-submit');
-    var $images_list = $('#images-list');
+    var $images_list = $('#tagged');
 
+    // click handler on submit
     $submit.on('click', function(e) {
       e.preventDefault();
       fetchPhotos($search.val());
     });
 
+    // Setup Enumerable for Flickr photos
+    // and register some callbacks
     var stream = new Enumerable();
     stream.register('set', function(i) { i.showPhoto() });
     stream.register('remove', function(i) { i.hidePhoto() });
     stream.register('shift', function(i) { i.hidePhoto() });
+    stream.register('filter', function(f) {
+      _.each(f, function(i) { stream.remove(i) });
+    });
 
+    // Remove callback
     var remove = function(photo) {
       stream.remove(photo);
     };
 
+    // Setup container and Enumerable for filtered
+    // Photos from the main stream
+    var filtered = new Enumerable();
+    filtered.register('set', function(i) { i.showPhoto() });
+    filtered.register('remove', function(i) { i.hidePhoto() });
+
+    var $filtered = $('#filtered');
+    var $filter = $('#tag-filter-input');
+    var $filter_submit = $('#tag-filter-submit');
+
+    // Filter photos from Stream based on title
+    $filter_submit.on('click', function(e) {
+      e.preventDefault();
+      var filter = $.trim($filter.val());
+      var f = stream.filter(function(i) {
+        return i.title.indexOf(filter) !== -1;
+      });
+      if (f.length > 0) {
+        filtered.each(function(i) { filtered.remove(i) });
+        _.each(f, function(i) {
+          filtered.set(new Photo(i.entry, $filtered, remove));
+        });
+      };
+    });
+
+    // JSONP callback from Flickr request
     var processPhotos = function(data) {
       _.each(data.items.reverse(), function(item){
         stream.set(new Photo(item, $images_list, remove));
       });
     };
 
+    // Tell Flickr what to give us in request
     var options = {
       url : 'http://api.flickr.com/services/feeds/photos_public.gne',
       type : 'GET',
@@ -109,7 +164,7 @@
       return $.ajax(options);
     };
 
-    fetchPhotos('kyoto');
+    fetchPhotos('harajuku'); // default set
   </script>
 </body>
 </html>
