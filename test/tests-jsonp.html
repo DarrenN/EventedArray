@@ -79,7 +79,7 @@
   <div class="column">
     <form method="get" id="tag-filter" class="form">
       <label for="tag-filter-input">Filter:</label>
-      <input type="search" id="tag-filter-input" />
+      <input type="search" id="tag-filter-input" placeholder="filter by title" />
       <input type="submit" id="tag-filter-submit" value="Go!" />
     </form>
     <div class="images-container">
@@ -128,9 +128,9 @@
     // Filter photos from Stream based on title
     $filter_submit.on('click', function(e) {
       e.preventDefault();
-      var filter = $.trim($filter.val());
+      var filter = $.trim($filter.val()).toLowerCase();
       var f = stream.filter(function(i) {
-        return i.title.indexOf(filter) !== -1;
+        return i.title.toLowerCase().indexOf(filter) !== -1;
       });
       if (f.length > 0) {
         filtered.each(function(i) { filtered.remove(i) });
