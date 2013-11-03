@@ -120,6 +120,7 @@
     var filtered = new Enumerable();
     filtered.register('set', function(i) { i.showPhoto() });
     filtered.register('remove', function(i) { i.hidePhoto() });
+    filtered.register('shift', function(i) { i.hidePhoto() });
 
     var $filtered = $('#filtered');
     var $filter = $('#tag-filter-input');
