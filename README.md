@@ -19,6 +19,15 @@ are pushed() on the end.
 
 #### Show me:
 
+**Simple animation demo** -
+  [http://darrenn.github.io/EventedArray](http://darrenn.github.io/EventedArray)
+
+**Flickr image search demo** -
+  [/test-jsonp.html](http://darrenn.github.io/EventedArray/tests-jsonp.html)
+
+**Higher-order functional version** - [test-fanimation.html](http://darrenn.github.io/EventedArray/test-fanimation.html)
+
+
 ```javascript
 
 var e = new EventedArray(1,2,3,4,5);
@@ -45,15 +54,6 @@ e.set('howdy');
 e.toString(); // "[3,4,5,'howdy']"
 
 ```
-
-**Simple animation demo** -
-  [http://darrenn.github.io/EventedArray](http://darrenn.github.io/EventedArray)
-
-**Flickr image search demo** -
-  [/test-jsonp.html](http://darrenn.github.io/EventedArray/tests-jsonp.html)
-
-**Higher-order functional version** - [test-fanimation.html](http://darrenn.github.io/EventedArray/test-fanimation.html)
-
 #### Lispy-flavored version
 
 This whole shebang got started while I was playing around with
