@@ -1,1 +1,60 @@
-My GitHub Page
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSEnumerable Animation Test</title>
+
+  <style type="text/css" media="screen">
+    body {
+        padding: 20px;
+        font-family: 'Helvetica Neue', arial, sans-serif;
+        color: #333;
+    }
+    #drawing {
+        width: 100%;
+        height: 400px;
+        border: #ddd 1px solid;
+    }
+    #displayqueue {
+        text-align: center;
+        font-family: 'Inconsolata', 'Menlo', 'Courier', monospace;
+        color: #666;
+        margin: 20px;
+    }
+  </style>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="js/lib/underscore/underscore-min.js"></script>
+  <script src="js/EventedArray.js"></script>
+  <script src="js/Box.js"></script>
+</head>
+<body>
+  <h1>JSEventedArray Animation Test</h1>
+  <div id="drawing"></div>
+  <h2>[x,y] tuples for each square:</h2>
+  <div id="displayqueue"></div>
+  <p>An eventListener watches mousemove which passes your mouse [x,y] coordinated into a Box object, which is set into a buffered JSEventedArray Queue. As items are set/shifted in the queue callbacks attached to the queue call functions on the inserted/removed Boxes, triggering them to add/remove themselves in the DOM.</p>
+  <script type="text/javascript">
+    // Create a Queue that holds 25 items and attach events
+    var Q = new EventedArray();
+    Q.setBuffer(25);
+    Q.register('set', function(b) { b.showBox(); });
+    Q.register('shift', function(b) { b.hideBox(); delete(b); });
+
+    // Create another queue to display our points
+    var displayQueue = $('#displayqueue');
+    var P = new EventedArray();
+    P.setBuffer(25);
+    P.register('set', function() { displayQueue.html(P.toString()); });
+
+    // Drawing area
+    var canvas = $('#drawing');
+
+    // Mousemove listener
+    var onMove = function(e) {
+      Q.set(new Box([e.x, e.y], canvas));
+      P.set([e.x, e.y]);
+    };
+
+    document.getElementById('drawing').addEventListener('mousemove', onMove);
+  </script>
+</body>
+</html>
