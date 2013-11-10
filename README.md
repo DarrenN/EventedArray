@@ -1,8 +1,6 @@
 # EventedArray
 
-###  An Array-like data structure in JavaScript which allows you to register callbacks on accessor/mutator oprtations.
-
-#### What?
+###  An Array-like data structure in JavaScript which allows you to register callbacks on accessor/mutator operations.
 
 Sometimes you want a simple data structure such as an Array
 (`[1,2,3,4]`) that you can attach callbacks to, so that accessor &
@@ -15,19 +13,36 @@ Similar projects:
 * [array](https://github.com/MatthewMueller/array)
 * [EventedArray](https://github.com/adjohnson916/EventedArray)
 
+Unlike those projects, this one also lets you create a fixed size
+array so that older values are shifted() off the front as new values
+are pushed() on the end.
 
 #### Show me:
 
 ```javascript
 
-var e = new Enumerable(1,2,3,4,5);
+var e = new EventedArray(1,2,3,4,5);
+
+// Simple setter/getter
+
 e.toString() // [1,2,3,4,5]
 e.set(1)
 e.toString() // [1,2,3,4,5,1]
 e.get(2) // returns 3
 
+// Define a callback on 'set'
 e.register('set', function(i) { console.log( i + ' was set!'); });
+
 e.set('a') // console: a was set!
+
+// Create a set sized array (buffered)
+
+var e = new EventedArray();
+e.setBuffer(4);
+e.set(1,2,3,4,5);
+e.toString(); // "[2,3,4,5]"
+e.set('howdy');
+e.toString(); // "[3,4,5,'howdy']"
 
 ```
 
