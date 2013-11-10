@@ -1,10 +1,20 @@
-# JSEnumerable
+# EventedArray
 
-###  An Array-like data structure in JavaScript which allows you to register callbacks on events.
+###  An Array-like data structure in JavaScript which allows you to register callbacks on accessor/mutator oprtations.
 
 #### What?
 
-Sometimes you want a simple data structure such as an Array (`[1,2,3,4]`) that you can attach callbacks to, so that events like set, getting, popping and shifting values from the Array will trigger those callbacks. This would make creating queues really easy, _no?_
+Sometimes you want a simple data structure such as an Array
+(`[1,2,3,4]`) that you can attach callbacks to, so that accessor &
+mutator actions like set, getting, popping and shifting values from the Array will trigger
+those callbacks.
+
+Similar projects:
+
+* [Observable-Arrays](https://github.com/mennovanslooten/Observable-Arrays)
+* [array](https://github.com/MatthewMueller/array)
+* [EventedArray](https://github.com/adjohnson916/EventedArray)
+
 
 #### Show me:
 
@@ -18,10 +28,10 @@ e.get(2) // returns 3
 
 e.register('set', function(i) { console.log( i + ' was set!'); });
 e.set('a') // console: a was set!
-	
+
 ```
 
-Pop open the `/test` directory, I've got a bunch of stuff in there. This is a really [simple animation example](https://github.com/DarrenN/JSEnumerable/blob/master/test/test-animation.html) using a set-sized buffer.
+Pop open the `/test` directory, I've got a bunch of stuff in there. This is a really [simple animation example](https://github.com/DarrenN/EventedArray/blob/master/test/test-animation.html) using a set-sized buffer.
 
 #### Dependencies
 

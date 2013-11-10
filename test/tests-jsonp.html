@@ -60,11 +60,11 @@
   </style>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="../build/js/lib/underscore/underscore-min.js"></script>
-  <script src="../build/js/Enumerable.js"></script>
+  <script src="../build/js/EventedArray.js"></script>
   <script src="js/Photo.js"></script>
 </head>
 <body>
-  <h1>JSEnumerable JSONP Test</h1>
+  <h1>JSEventedArray JSONP Test</h1>
   <div class="column">
     <form method="get" id="tag-form" class="form">
       <label for="tag-input">Search tag:</label>
@@ -100,9 +100,9 @@
       fetchPhotos($search.val());
     });
 
-    // Setup Enumerable for Flickr photos
+    // Setup EventedArray for Flickr photos
     // and register some callbacks
-    var stream = new Enumerable();
+    var stream = new EventedArray();
     stream.register('set', function(i) { i.showPhoto() });
     stream.register('remove', function(i) { i.hidePhoto() });
     stream.register('shift', function(i) { i.hidePhoto() });
@@ -115,9 +115,9 @@
       stream.remove(photo);
     };
 
-    // Setup container and Enumerable for filtered
+    // Setup container and EventedArray for filtered
     // Photos from the main stream
-    var filtered = new Enumerable();
+    var filtered = new EventedArray();
     filtered.register('set', function(i) { i.showPhoto() });
     filtered.register('remove', function(i) { i.hidePhoto() });
     filtered.register('shift', function(i) { i.hidePhoto() });

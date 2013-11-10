@@ -3,7 +3,7 @@ root = exports ? this
 # Enumerable
 # ==========
 #
-class Enumerable
+class EventedArray
 
   constructor : (values...) ->
     @values = values
@@ -86,7 +86,7 @@ class Enumerable
 
   shuffle : ->
     @trigger 'shuffle', _.shuffle @values
-  
+
 
   ###
   # Accessors without events - for quickly getting at values
@@ -135,10 +135,10 @@ class Enumerable
 # Do some checking of the global space to see if we're in AMD /
 # Node.js land
 if typeof module == 'object' && module && typeof module.exports == 'object'
-  module.exports = Enumerable
+  module.exports = EventedArray
 else if typeof exports == 'object' && exports
-  exports.Enumerable = Enumerable
+  exports.EventedArray = EventedArray
 else if typeof define == 'function' && define.amd
-  define 'enumerable', [], -> return Enumerable
+  define 'eventedarray', [], -> return EventedArray
 else
-  root.Enumerable = Enumerable
+  root.EventedArray = EventedArray

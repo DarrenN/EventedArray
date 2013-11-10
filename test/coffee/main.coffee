@@ -3,16 +3,16 @@ require
   baseUrl : 'js'
   paths :
     underscore : '../../build/js/lib/underscore/underscore-min'
-    enumerable : '../../build/js/Enumerable'
+    eventedarray : '../../build/js/EventedArray'
   shim :
     'underscore' :
       exports : '_'
 
 require [
   'underscore',
-  'enumerable',
-  'EnumerableRequireSpec'
-], (_, Enumerable, EnumerableRequireSpec) ->
+  'eventedarray',
+  'EventedArrayRequireSpec'
+], (_, EventedArray, EventedArrayRequireSpec) ->
 
   jasmineEnv = jasmine.getEnv()
   jasmineEnv.updateInterval = 1000
@@ -23,6 +23,5 @@ require [
 
   jasmineEnv.specFilter = (spec) ->
     return htmlReporter.specFilter(spec);
-
 
   jasmineEnv.execute();

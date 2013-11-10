@@ -5,6 +5,12 @@
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
+  /*
+  #  Higher order functions which return functions that operate
+  #  on the data structures they close over.
+  */
+
+
   registerListener = function(list, f) {
     return list.push(f);
   };
@@ -62,7 +68,7 @@
   };
 
   /*
-  Queues
+  #  Queues
   */
 
 

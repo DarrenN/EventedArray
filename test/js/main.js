@@ -5,7 +5,7 @@
     baseUrl: 'js',
     paths: {
       underscore: '../../build/js/lib/underscore/underscore-min',
-      enumerable: '../../build/js/Enumerable'
+      eventedarray: '../../build/js/EventedArray'
     },
     shim: {
       'underscore': {
@@ -14,7 +14,7 @@
     }
   });
 
-  require(['underscore', 'enumerable', 'EnumerableRequireSpec'], function(_, Enumerable, EnumerableRequireSpec) {
+  require(['underscore', 'eventedarray', 'EventedArrayRequireSpec'], function(_, EventedArray, EventedArrayRequireSpec) {
     var htmlReporter, jasmineEnv;
     jasmineEnv = jasmine.getEnv();
     jasmineEnv.updateInterval = 1000;
