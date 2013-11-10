@@ -48,10 +48,11 @@ e.toString(); // "[3,4,5,'howdy']"
 
 **Simple animation demo** -
   [http://darrenn.github.io/EventedArray](http://darrenn.github.io/EventedArray)
+
 **Flickr image search demo** -
   [/test-jsonp.html](http://darrenn.github.io/EventedArray/test-jsonp.html)
-**Higher-order functional version** - [test-fanimation.html](http://darrenn.github.io/EventedArray/test-fanimation.html)
 
+**Higher-order functional version** - [test-fanimation.html](http://darrenn.github.io/EventedArray/test-fanimation.html)
 
 #### Lispy-flavored version
 
