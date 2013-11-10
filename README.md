@@ -46,7 +46,20 @@ e.toString(); // "[3,4,5,'howdy']"
 
 ```
 
-Pop open the `/test` directory, I've got a bunch of stuff in there. This is a really [simple animation example](https://github.com/DarrenN/EventedArray/blob/master/test/test-animation.html) using a set-sized buffer.
+Pop open the `/test` directory, I've got a bunch of stuff in there.
+This is a really
+[simple animation example](https://github.com/DarrenN/EventedArray/blob/master/test/test-animation.html)
+using a set-sized buffer.
+
+#### Lispy-flavored version
+
+This whole shebang got started while I was playing around with
+ClojureScript and Scheme and needed a listenable list. After doing
+that I realized I could translate those functions easily with minimal
+CoffeeScript to do the same thing in my JavaScript projects. You can
+see that
+[here](https://github.com/DarrenN/EventedArray/blob/master/source/coffee/FEventedArray.coffee)
+and play with it in `/test/test-fanimation.html`
 
 #### Dependencies
 
