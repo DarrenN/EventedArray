@@ -63,7 +63,7 @@ and play with it in `/test/test-fanimation.html`
 
 #### Dependencies
 
-**Underscore.js** - I mixing a grab bag of the collection functions from Underscore to make it easy to access and iterate over the values
+**Underscore.js** - I mixin a grab bag of the collection functions from Underscore to make it easy to access and iterate over the values
 
 #### How to use:
 
