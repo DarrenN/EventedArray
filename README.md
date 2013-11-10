@@ -50,9 +50,9 @@ e.toString(); // "[3,4,5,'howdy']"
   [http://darrenn.github.io/EventedArray](http://darrenn.github.io/EventedArray)
 
 **Flickr image search demo** -
-  [/test-jsonp.html](http://darrenn.github.io/EventedArray/test-jsonp.html)
+  [/test-jsonp.html](http://darrenn.github.io/EventedArray/tests-jsonp.html)
 
-**Higher-order functional version** - [test-fanimation.html](http://darrenn.github.io/EventedArray/test-fanimation.html)
+**Higher-order functional version** - [test-fanimation.html](http://darrenn.github.io/EventedArray/tests-fanimation.html)
 
 #### Lispy-flavored version
 
