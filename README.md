@@ -2,6 +2,8 @@
 
 ###  An Array-like data structure in JavaScript which allows you to register callbacks on accessor/mutator operations.
 
+**Read more:** [http://darrenknewton.com/2013/11/16/evented-arrays-a-javascript-conveyor-belt/](http://darrenknewton.com/2013/11/16/evented-arrays-a-javascript-conveyor-belt/)
+
 Sometimes you want a simple data structure such as an Array
 (`[1,2,3,4]`) that you can attach callbacks to, so that accessor &
 mutator actions like set, getting, popping and shifting values from the Array will trigger
